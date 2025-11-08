@@ -1,0 +1,22 @@
+{
+  "name": "tf2-records-discord-bot",
+  "version": "1.0.0",
+  "description": "Discord bot for managing TF2 speedrun records",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "nodemon bot.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "sharp": "^0.32.6",
+    "fs-extra": "^11.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "keywords": ["discord", "bot", "tf2", "speedrun", "records"],
+  "author": "1kU RUN CREW",
+  "license": "MIT"
+}
+
