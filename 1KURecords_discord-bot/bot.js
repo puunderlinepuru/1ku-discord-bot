@@ -2,6 +2,7 @@ const { Client, GatewayIntentBits, AttachmentBuilder } = require('discord.js');
 const fs = require('fs-extra');
 const path = require('path');
 const sharp = require('sharp');
+const config = require('./config.json');
 
 // Create Discord client
 const client = new Client({
@@ -13,8 +14,8 @@ const client = new Client({
 });
 
 // Configuration
-const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN || 'YOUR_BOT_TOKEN_HERE';
-const ALLOWED_CHANNEL_ID = process.env.ALLOWED_CHANNEL_ID || 'YOUR_CHANNEL_ID_HERE';
+const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN || config.token;
+const ALLOWED_CHANNEL_ID = process.env.ALLOWED_CHANNEL_ID || config.channel_id;
 const DATA_FILE_PATH = path.join(__dirname, '../1KU_RUN_DATA.json');
 const PROOF_FOLDER = path.join(__dirname, '../Proof');
 
