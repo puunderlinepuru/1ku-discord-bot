@@ -1,26 +1,57 @@
-const { Client, GatewayIntentBits, AttachmentBuilder } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, GatewayIntentBits } = require('discord.js');
 const fs = require('fs-extra');
 const path = require('path');
 const sharp = require('sharp');
 const config = require('./config.json');
+const { channel } = require('diagnostics_channel');
 
 // Create Discord client
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.GuildMessageReactions
     ]
 });
 
 // Configuration
-const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN || config.token;
-const ALLOWED_CHANNEL_ID = process.env.ALLOWED_CHANNEL_ID || config.channel_id;
+const BOT_TOKEN = config.token;
+const ALLOWED_CHANNEL_ID = config.channel_id;
+const REGION_ROLE_MESSAGE_ID = config.region_role_message_id;
 const DATA_FILE_PATH = path.join(__dirname, '../1KU_RUN_DATA.json');
 const PROOF_FOLDER = path.join(__dirname, '../Proof');
 
+const ROLE_ON_JOIN_ID = config.role_on_join_id;
+
 // Ensure directories exist
 fs.ensureDirSync(PROOF_FOLDER);
+
+if (process.argv[2] === "1") {
+    
+    client.once('ready', async () => {
+        const test_channel = client.channels.cache.get(ALLOWED_CHANNEL_ID);
+        console.log("channel: " + test_channel.name);
+        const region_role_message = await test_channel.messages.fetch(REGION_ROLE_MESSAGE_ID);
+        console.log(region_role_message.content);
+
+        const role_1 = new ButtonBuilder()
+            .setCustomId('button_1')
+            .setLabel('1')
+            .setStyle(ButtonStyle.Primary)
+            .setDisabled(false);
+        const role_2 = new ButtonBuilder()
+            .setCustomId('button_2')
+            .setLabel('2')
+            .setStyle(ButtonStyle.Primary)
+            .setDisabled(false);
+
+        const row = new ActionRowBuilder().addComponents(role_1, role_2);
+        test_channel.send({ content: 'test message', components: [row]});
+    })
+}
 
 // Load map data from JSON file
 function loadMapData() {
@@ -114,13 +145,35 @@ client.once('ready', () => {
     }
 });
 
+client.on('interactionCreate', async interaction => {
+    const guild = client.guilds.cache.get(config.server_id);
+    const member = await guild.members.fetch(interaction.user.id);
+    const role_1 =  await guild.roles.fetch(config.role_1_id);
+    const role_2 =  await guild.roles.fetch(config.role_2_id);
+    if (interaction.customId === 'button_1') {
+        member.roles.cache.has(role_1.id) ? member.roles.remove(role_1) : member.roles.add(role_1);
+        interaction.deferUpdate();
+    } else if (interaction.customId === 'button_2') {
+        member.roles.cache.has(role_2.id) ? member.roles.remove(role_2) : member.roles.add(role_2);
+        interaction.deferUpdate();
+    }
+})
+
+client.on('guildMemberAdd', async member => {
+    const guild = client.guilds.cache.get(config.server_id);
+    const role_on_join = await guild.roles.fetch(ROLE_ON_JOIN_ID);
+    const test_channel = client.channels.cache.get(ALLOWED_CHANNEL_ID);
+    test_channel.send(`hi ${member.displayName}`);
+    member.roles.add(role_on_join);
+})
+
 // Message handler
 client.on('messageCreate', async (message) => {
     // Ignore bot messages and messages from other channels
     if (message.author.bot || message.channel.id !== ALLOWED_CHANNEL_ID) return;
     
     const content = message.content.toLowerCase().trim();
-    
+
     // Help command
     if (content === '!help' || content === '!commands') {
         const helpEmbed = {
@@ -163,6 +216,18 @@ client.on('messageCreate', async (message) => {
         return;
     }
     
+    if (content === '!getrole') {
+        console.log("got message from: " + message.author.id);
+        const guild = client.guilds.cache.get(config.server_id);
+        const member = await guild.members.fetch(message.author.id);
+        const role =  await guild.roles.fetch(config.role_1_id);
+        member.roles.add(role);
+    }
+
+    if (content === '!test') {
+        console.log('message from ' + message.author.displayName);
+    }
+
     // Update record command
     if (content.startsWith('!update ')) {
         const args = message.content.slice(8).trim().split(/\s+/);
