@@ -4,9 +4,9 @@
     "displayName": "cp altitude",
     "category": "control-point",
     "thumbnail": "KrummsThumbnails/capture points/Cp_altitude.png",
-    "proof": "Proof/cp_Altitude.jpg",
-    "newRecord": "1:02",
-    "oldRecord": "1:03",
+    "proof": {},
+    "newRecord": "0:33",
+    "oldRecord": "1:02",
     "records": [
       {
         "time": "1:03",
@@ -15,14 +15,20 @@
       {
         "time": "1:02",
         "timestamp": "2025-10-22T10:00:00Z"
+      },
+      {
+        "time": "0:33",
+        "timestamp": "2025-11-21T18:20:25.939Z"
       }
     ],
-    "lastUpdated": "2025-10-22T10:00:00Z",
+    "lastUpdated": "2025-11-21T18:20:25.939Z",
     "strategies": [
       "FJ_s_Strats/Altitude_1st_point.jpg",
       "FJ_s_Strats/Altitude_2nd_point.jpg",
       "FJ_s_Strats/Altitude_3rd_point.jpg"
-    ]
+    ],
+    "proof_by": "pupurupu",
+    "record_updated_by": "pupurupu"
   },
   "cp_brew": {
     "title": "CP BREW",
@@ -105,8 +111,8 @@
     "displayName": "cp dustbowl",
     "category": "control-point",
     "thumbnail": "KrummsThumbnails/capture points/TF2_Dustbowl_Map.jpg",
-    "proof": "Proof/cp_dustbowl.jpg",
-    "newRecord": "8:30",
+    "proof": {},
+    "newRecord": "1:33",
     "oldRecord": "8:46",
     "strategies": [
       "FJ_s_Strats/Dustbowl_1st_point.jpg",
@@ -116,7 +122,15 @@
       "FJ_s_Strats/Dustbowl_5th_point.jpg",
       "FJ_s_Strats/Dustbowl_6th_point.jpg",
       "FJ_s_Strats/Dustbowl_6th_point_alt.jpg"
-    ]
+    ],
+    "lastUpdated": "2025-11-21T18:17:49.049Z",
+    "records": [
+      {
+        "time": "1:33",
+        "timestamp": "2025-11-21T18:17:49.049Z"
+      }
+    ],
+    "proof_by": "pupurupu"
   },
   "cp_gorge": {
     "title": "CP GORGE",
