@@ -62,10 +62,10 @@ function listMaps() {
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('list')
-        .setDescription('lists first 20 available maps'),
+        .setDescription('List first 20 available maps (I can show more but it\'s work:c)'),
     async execute(interaction) {
-        let reply_text = listMaps();
+        let response = listMaps();
 
-        await interaction.reply(reply_text)
+        await interaction.reply({ content: response, ephemeral: true});
     }
 }

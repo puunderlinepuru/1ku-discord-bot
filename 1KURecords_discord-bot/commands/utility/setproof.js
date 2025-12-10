@@ -128,6 +128,6 @@ module.exports = {
         let runner = interaction.user.username;
         response = setProofPicture(map_name, proof_image, runner);
 
-        await interaction.reply(response);
+        await interaction.reply({ content: response, ephemeral: true});
     }
 }

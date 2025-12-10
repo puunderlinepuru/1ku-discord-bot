@@ -83,14 +83,20 @@ function updateRecord(map_name, new_time, proof_image, runner_name) {
         console.log(map_name + ', ' + new_time + ', ' + proof_image.name);
 
         if (!isValidTime(new_time)) {
-            return '❌ Invalid time format. Use MM:SS (e.g., 1:23)';
+            return {color: 0x934739,
+                title: `📊 ${mapId.toUpperCase().replace(/_/g, ' ')}`,
+                description: `❌ Invalid time format. Use MM:SS (e.g., 1:23)`
+            };
         }
 
         try {
             const mapRecords = loadMapData();
             
             if (!mapRecords[map_name]) {
-                return `❌ Map "${map_name}" not found. Use !list to see available maps.`;
+                return {color: 0x934739,
+                title: `📊 ${mapId.toUpperCase().replace(/_/g, ' ')}`,
+                description: `❌ Map "${mapId}" not found. Use /list to see available maps.`
+            };
             }
             
             // Process image if attached
@@ -127,6 +133,7 @@ function updateRecord(map_name, new_time, proof_image, runner_name) {
                 const successEmbed = {
                     color: 0x4d6b1c,
                     title: '✅ Record Updated!',
+                    description: 'Updated record for:',
                     fields: [
                         { name: 'Map', value: `**${map_name}**`, inline: false },
                         { name: 'New Record', value: `🎯 **${new_time}**`, inline: true },
@@ -140,24 +147,34 @@ function updateRecord(map_name, new_time, proof_image, runner_name) {
                 };
                 
                 if (proof_image.size > 0) {
-                    successEmbed.fields.push({ name: 'Proof Image', value: '✅ Uploaded & Processed', inline: false });
+                    successEmbed.fields.push({ 
+                        name: 'Proof Image', 
+                        description: 'Updated image',
+                        value: '✅ Uploaded & Processed', inline: false 
+                    });
                 }
                 
-                return ({ embeds: [successEmbed] });
+                return (successEmbed);
             } else {
-                return '❌ Failed to save record. Please try again.';
+                return {color: 0x934739,
+                    title: `📊 ${mapId.toUpperCase().replace(/_/g, ' ')}`,
+                    description: `❌ Failed to save record. Please try again.`
+                };
             }
             
             } catch (error) {
                 console.error('Error updating record:', error);
-                return '❌ An error occurred while updating the record.';
+                return {color: 0x934739,
+                    title: `📊 ${mapId.toUpperCase().replace(/_/g, ' ')}`,
+                    description: `❌ An error occurred while updating the record.`
+                };
             }
 }
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('update')
-        .setDescription('updates map times')
+        .setDescription('Update a map record')
         .addStringOption((option) => 
             option.setName('map_name')
             .setDescription('what map?') 
@@ -182,6 +199,6 @@ module.exports = {
 
         let response = updateRecord(map_name, new_time, proof_image, runner_name);
 
-        await interaction.reply(response);
+        await interaction.reply({ embeds: [response], ephemeral: true});
     }
 }

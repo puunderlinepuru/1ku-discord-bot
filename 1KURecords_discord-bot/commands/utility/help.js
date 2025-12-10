@@ -32,12 +32,22 @@ module.exports = {
                     name: '/latest',
                     value: '🆕 Show the 10 most recently updated maps',
                     inline: false
+                },
+                {
+                    name: '/getrole',
+                    value: '💨 In case bot didn\'t assign you runner role on join',
+                    inline: false
+                },
+                {
+                    name: '/ping',
+                    value: '🏓 Pong!',
+                    inline: false
                 }
             ],
             footer: {
                 text: 'Time format: MM:SS (e.g., 1:23) • Proof images are automatically processed'
             }
         };
-        await interaction.reply({ embeds: [helpEmbed] });
+        await interaction.reply({ embeds: [helpEmbed], ephemeral: true });
     }
 }

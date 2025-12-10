@@ -3,10 +3,8 @@ const fs = require('fs-extra');
 const path = require('path');
 const config = require('config');
 
-// const DATA_FILE_PATH = path.join(__dirname, '../1KU_RUN_DATA.json');
 const DATA_FILE_PATH = config.get('map_data_path');
-// const PROOF_FOLDER = path.join(__dirname, '../Proof');
-const PROOF_FOLDER = config.get('proof_pics_path');
+// const PROOF_FOLDER = config.get('proof_pics_path');
 
 
 function loadMapData() {
@@ -39,14 +37,17 @@ function getMapData(request_map) {
     const mapId = request_map;
 
     if (!mapId) {
-        return '❌ Usage: `!check <map>`\nExample: `!check cp_dustbowl`';
+        return '❌ Usage: `/check <map>`\nExample: `/check cp_dustbowl`';
     }
 
     try {
         const mapRecords = loadMapData();
         
         if (!mapRecords[mapId]) {
-            return `❌ Map "${mapId}" not found. Use !list to see available maps.`;
+            return {color: 0x934739,
+                title: `📊 ${mapId.toUpperCase().replace(/_/g, ' ')}`,
+                description: `❌ Map "${mapId}" not found. Use /list to see available maps.`
+            };
         }
         
         const data = mapRecords[mapId];
@@ -107,11 +108,11 @@ function getMapData(request_map) {
             inline: true 
         });
         
-        return ({ embeds: [checkEmbed] });
+        return (checkEmbed);
         
     } catch (error) {
         console.error('Error checking record:', error);
-        return '❌ An error occurred while checking the record.';
+        return {};
     }
 }
 
@@ -126,8 +127,8 @@ module.exports = {
         ),
     async execute(interaction) {
         const map_name = interaction.options.getString('map_name') ?? 'wrong input';
-        let answer = getMapData(map_name);
+        let response = getMapData(map_name);
 
-        await interaction.reply(answer);
+        await interaction.reply({ embeds: [response], ephemeral: true});
     }
 }

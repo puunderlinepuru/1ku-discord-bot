@@ -75,10 +75,10 @@ function getLatest() {
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('latest')
-        .setDescription('get latest records'),
+        .setDescription('Check our latest records'),
     async execute(interaction) {
         response = getLatest();
 
-        await interaction.reply(response);
+        await interaction.reply({ content: response, ephemeral: true});
     }
 }
