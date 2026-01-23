@@ -1,0 +1,222 @@
+{
+  "control point" : {
+    "curr" : "",
+    "prev" : "",
+    "pic" : "record proof"
+  },
+  "cp_altitude" : {
+    "curr" : "0:40",
+    "prev" : "0:44",
+    "pic" : "https://ibb.co/gLy60LQd"
+  },
+  "cp_brew" : {
+    "curr" : "2:48",
+    "prev" : "4:17",
+    "pic" : "https://ibb.co/8ct1BSC"
+  },
+  "cp_cargo" : {
+    "curr" : "0:40",
+    "prev" : "1:06",
+    "pic" : "https://ibb.co/GvWpJGQn"
+  },
+  "cp_dustbowl" : {
+    "curr" : "7:15",
+    "prev" : "7:33",
+    "pic" : ""
+  },
+  "cp_egypt" : {
+    "curr" : "6:30",
+    "prev" : "7:18",
+    "pic" : "https://ibb.co/9qj3BvZ"
+  },
+  "cp_fulgur" : {
+    "curr" : "1:53",
+    "prev" : "2:33",
+    "pic" : "https://ibb.co/yFwmC2mY"
+  },
+  "cp_gorge" : {
+    "curr" : "3:01",
+    "prev" : "3:09",
+    "pic" : "https://ibb.co/rGsGvLMw"
+  },
+  "cp_hardwood" : {
+    "curr" : "2:47",
+    "prev" : "3:05",
+    "pic" : "https://ibb.co/mCm25JB3"
+  },
+  "cp_junction" : {
+    "curr" : "2:46",
+    "prev" : "2:48",
+    "pic" : "https://ibb.co/5x6nJ8Gy"
+  },
+  "cp_mercenarypark" : {
+    "curr" : "4:28",
+    "prev" : "4:44",
+    "pic" : "https://ibb.co/LzXH3zyM"
+  },
+  "cp_mossrock" : {
+    "curr" : "1:05",
+    "prev" : "1:11",
+    "pic" : "https://ibb.co/s93ScZKY"
+  },
+  "cp_mountainlab" : {
+    "curr" : "2:56",
+    "prev" : "5:08",
+    "pic" : "https://ibb.co/5WwxBWWg"
+  },
+  "cp_overgrown" : {
+    "curr" : "3:08",
+    "prev" : "3:56",
+    "pic" : "https://ibb.co/sRfZqrd"
+  },
+  "tc_hydro" : {
+    "curr" : "5:29",
+    "prev" : "6:54",
+    "pic" : "https://ibb.co/PvFBbJKs"
+  },
+  "ctf_2fort" : {
+    "curr" : "5:04",
+    "prev" : "5:39",
+    "pic" : "https://ibb.co/5xFxFZ65"
+  },
+  "ctf_applejack" : {
+    "curr" : "4:19",
+    "prev" : "7:17",
+    "pic" : "https://ibb.co/JVxpLHy"
+  },
+  "ctf_turbine" : {
+    "curr" : "3:42",
+    "prev" : "5:14",
+    "pic" : "https://ibb.co/JR6NJvv5"
+  },
+  "ctf_doublecross" : {
+    "curr" : "5:11",
+    "prev" : "6:05",
+    "pic" : "https://ibb.co/zhMn8rmc"
+  },
+  "ctf_pelican_peak" : {
+    "curr" : "4:44",
+    "prev" : "6:19",
+    "pic" : "https://ibb.co/ymckjN4y"
+  },
+  "ctf_well" : {
+    "curr" : "4:10",
+    "prev" : "x",
+    "pic" : "https://ibb.co/xqTvY5Sm"
+  },
+  "ctf_landfall" : {
+    "curr" : "6:26",
+    "prev" : "7:30",
+    "pic" : "https://ibb.co/hJ0Y0Qgx"
+  },
+  "ctf_sawmill" : {
+    "curr" : "3:05",
+    "prev" : "4:02",
+    "pic" : "https://ibb.co/ZzhXy053"
+  },
+  "pl_aquarius" : {
+    "curr" : "3:25",
+    "prev" : "4:07",
+    "pic" : "https://ibb.co/Z643YZ6J"
+  },
+  "pl_badwater" : {
+    "curr" : "3:51",
+    "prev" : "4:20",
+    "pic" : "https://ibb.co/rKDL3mY7"
+  },
+  "pl_barnblitz" : {
+    "curr" : "4:35",
+    "prev" : "5:26",
+    "pic" : "https://ibb.co/6c8ctDJM"
+  },
+  "pl_borneo" : {
+    "curr" : "5:33",
+    "prev" : "7:40",
+    "pic" : "https://ibb.co/ZRfsCCYj"
+  },
+  "pl_camber" : {
+    "curr" : "6:30",
+    "prev" : "9:00",
+    "pic" : "https://ibb.co/zVn4d2h8"
+  },
+  "pl_cashworks" : {
+    "curr" : "8:28",
+    "prev" : "9:11",
+    "pic" : "https://ibb.co/fVFJPpn9"
+  },
+  "pl_chilly" : {
+    "curr" : "5:50",
+    "prev" : "7:27",
+    "pic" : "https://ibb.co/jv1V4RnG"
+  },
+  "pl_citadel" : {
+    "curr" : "5:56",
+    "prev" : "6:58",
+    "pic" : "https://ibb.co/F4xmVNPZ"
+  },
+  "pl_emerge" : {
+    "curr" : "4:16",
+    "prev" : "4:22",
+    "pic" : "https://ibb.co/Xx2RJxgb"
+  },
+  "pl_frontier" : {
+    "curr" : "8:28 (bugged cart)",
+    "prev" : "8:35",
+    "pic" : "https://ibb.co/bRP1cZCx"
+  },
+  "pl_goldrush" : {
+    "curr" : "9:53",
+    "prev" : "10:32",
+    "pic" : "https://ibb.co/G3cZfPbz"
+  },
+  "pl_hoodoo" : {
+    "curr" : "8:09",
+    "prev" : "x",
+    "pic" : "https://ibb.co/1Y49J0sL"
+  },
+  "pl_odyssey" : {
+    "curr" : "6:06",
+    "prev" : "7:28",
+    "pic" : "https://ibb.co/N6fhWbCB"
+  },
+  "pl_phoenix" : {
+    "curr" : "6:42",
+    "prev" : "7:34",
+    "pic" : "https://ibb.co/5xFb9Vsr"
+  },
+  "pl_pier" : {
+    "curr" : "6:16",
+    "prev" : "8:03",
+    "pic" : "https://ibb.co/jZkdRzpc"
+  },
+  "pl_precipice_event" : {
+    "curr" : "4:44",
+    "prev" : "5:59",
+    "pic" : "https://ibb.co/WN0msf3V"
+  },
+  "pl_snowycoast" : {
+    "curr" : "4:17",
+    "prev" : "4:23",
+    "pic" : "https://ibb.co/1Gh8M4Yq"
+  },
+  "pl_swiftwater" : {
+    "curr" : "5:14",
+    "prev" : "7:00",
+    "pic" : "https://ibb.co/zVXcr49R"
+  },
+  "pl_thundermountain" : {
+    "curr" : "14:29",
+    "prev" : "14:52",
+    "pic" : "https://ibb.co/Qvcg588x"
+  },
+  "pl_upward" : {
+    "curr" : "6:16",
+    "prev" : "6:40",
+    "pic" : "https://ibb.co/cSmPTttB"
+  },
+  "pl_venice" : {
+    "curr" : "6:26",
+    "prev" : "7:42",
+    "pic" : "https://ibb.co/G4bW8cGk"
+  }
+}

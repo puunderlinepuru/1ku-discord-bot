@@ -5,8 +5,8 @@
     "category": "control-point",
     "thumbnail": "KrummsThumbnails/capture points/Cp_altitude.png",
     "proof": {},
-    "newRecord": "0:33",
-    "oldRecord": "1:02",
+    "newRecord": "0:40",
+    "oldRecord": "1:01",
     "records": [
       {
         "time": "1:03",
@@ -17,11 +17,15 @@
         "timestamp": "2025-10-22T10:00:00Z"
       },
       {
-        "time": "0:33",
-        "timestamp": "2025-11-21T18:20:25.939Z"
+        "time": "1:01",
+        "timestamp": "2025-11-13T19:03:38.993Z"
+      },
+      {
+        "time": "0:40",
+        "timestamp": "2025-12-06T16:42:24.728Z"
       }
     ],
-    "lastUpdated": "2025-11-21T18:20:25.939Z",
+    "lastUpdated": "2025-12-06T16:42:24.728Z",
     "strategies": [
       "FJ_s_Strats/Altitude_1st_point.jpg",
       "FJ_s_Strats/Altitude_2nd_point.jpg",
@@ -59,9 +63,9 @@
     "displayName": "cp cargo",
     "category": "control-point",
     "thumbnail": "KrummsThumbnails/capture points/Cp_cargo.png",
-    "proof": "Proof/cp_cargo.jpg",
-    "newRecord": "1:25",
-    "oldRecord": "5:41",
+    "proof": {},
+    "newRecord": "0:40",
+    "oldRecord": "1:25",
     "records": [
       {
         "time": "5:41",
@@ -74,10 +78,16 @@
       {
         "time": "1:25",
         "timestamp": "2025-10-20T10:00:00Z"
+      },
+      {
+        "time": "0:40",
+        "timestamp": "2025-12-06T16:43:10.673Z"
       }
     ],
-    "lastUpdated": "2025-10-20T10:00:00Z",
-    "strategies": []
+    "lastUpdated": "2025-12-06T16:43:10.673Z",
+    "strategies": [],
+    "proof_by": "pupurupu",
+    "record_updated_by": "pupurupu"
   },
   "cp_egypt": {
     "title": "CP EGYPT",
@@ -112,7 +122,7 @@
     "category": "control-point",
     "thumbnail": "KrummsThumbnails/capture points/TF2_Dustbowl_Map.jpg",
     "proof": {},
-    "newRecord": "1:33",
+    "newRecord": "8:21",
     "oldRecord": "8:46",
     "strategies": [
       "FJ_s_Strats/Dustbowl_1st_point.jpg",
@@ -123,14 +133,15 @@
       "FJ_s_Strats/Dustbowl_6th_point.jpg",
       "FJ_s_Strats/Dustbowl_6th_point_alt.jpg"
     ],
-    "lastUpdated": "2025-11-21T18:17:49.049Z",
     "records": [
       {
-        "time": "1:33",
-        "timestamp": "2025-11-21T18:17:49.049Z"
+        "time": "8:21",
+        "timestamp": "2025-12-06T16:44:12.836Z"
       }
     ],
-    "proof_by": "pupurupu"
+    "proof_by": "pupurupu",
+    "record_updated_by": "pupurupu",
+    "lastUpdated": "2025-12-06T16:44:12.836Z"
   },
   "cp_gorge": {
     "title": "CP GORGE",
@@ -309,15 +320,24 @@
     "displayName": "pl cashworks",
     "category": "payload",
     "thumbnail": "KrummsThumbnails/payload/Pl_cashworks.png",
-    "proof": "Proof/pl_cashworks.jpg",
-    "newRecord": "10:18",
+    "proof": {},
+    "newRecord": "9:11",
     "oldRecord": "10:18",
     "strategies": [
       "FJ_s_Strats/Cashworks_1st_point.jpg",
       "FJ_s_Strats/Cashworks_2nd_point.jpg",
       "FJ_s_Strats/Cashworks_3rd_point.jpg",
       "FJ_s_Strats/Cashworks_4th_point.jpg"
-    ]
+    ],
+    "records": [
+      {
+        "time": "9:11",
+        "timestamp": "2025-12-06T16:15:01.110Z"
+      }
+    ],
+    "proof_by": "pupurupu",
+    "record_updated_by": "pupurupu",
+    "lastUpdated": "2025-12-06T16:15:01.110Z"
   },
   "pl_chilly": {
     "title": "PL CHILLY",
@@ -485,9 +505,9 @@
     "displayName": "pl swiftwater",
     "category": "payload",
     "thumbnail": "KrummsThumbnails/payload/1024px-Pl_swiftwater.jpg",
-    "proof": "Proof/pl_swiftwater.jpg",
-    "newRecord": "7:22",
-    "oldRecord": "10:12",
+    "proof": {},
+    "newRecord": "7:16",
+    "oldRecord": "7:22",
     "strategies": [
       "FJ_s_Strats/Swiftwater_1st_point.jpg",
       "FJ_s_Strats/Swiftwater_2nd_point.jpg",
@@ -495,7 +515,16 @@
       "FJ_s_Strats/Swiftwater_4th_point.jpg",
       "FJ_s_Strats/Swiftwater_5th_point.jpg",
       "FJ_s_Strats/Swiftwater_5th_point_bis.jpg"
-    ]
+    ],
+    "records": [
+      {
+        "time": "7:16",
+        "timestamp": "2025-12-06T16:25:55.316Z"
+      }
+    ],
+    "proof_by": "pupurupu",
+    "record_updated_by": "pupurupu",
+    "lastUpdated": "2025-12-06T16:39:09.371Z"
   },
   "pl_thundermountain": {
     "title": "PL THUNDERMOUNTAIN",

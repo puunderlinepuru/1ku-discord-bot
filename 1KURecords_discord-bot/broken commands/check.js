@@ -50,75 +50,63 @@ function getMapData(request_map) {
             };
         }
         
-        const data = mapRecords[mapId];
+        const data = mapRecords.get(mapId);
         const checkEmbed = {
             color: 0x934739,
             title: `📊 ${mapId.toUpperCase().replace(/_/g, ' ')}`,
-            // image: {
-            //     url: data.pic ? data.pic : null
-            // },
-            description: `**Current Record:** 🎯 **${data.curr}**`,
+            description: `**Current Record:** 🎯 **${data.newRecord}**`,
             fields: []
         };
-
-        checkEmbed.fields.push({ 
-                name: `📁 Previous Record:`, 
-                value: data.prev, 
+        
+        // Show record history if available
+        if (data.records && data.records.length > 0) {
+            let historyText = '';
+            data.records.forEach((record, index) => {
+                const date = new Date(record.timestamp).toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+                const isLatest = index === data.records.length - 1;
+                const emoji = isLatest ? '🎯' : '📌';
+                historyText += `${emoji} **${record.time}** - ${date}\n`;
+            });
+            checkEmbed.fields.push({ 
+                name: `📈 Record History (${data.records.length} total)`, 
+                value: historyText, 
                 inline: false 
             });
-
-        console.log('Record data:', data);
+        }
         
-        // // Show record history if available
-        // if (data.records && data.records.length > 0) {
-        //     let historyText = '';
-        //     data.records.forEach((record, index) => {
-        //         const date = new Date(record.timestamp).toLocaleDateString('en-US', { 
-        //             month: 'short', 
-        //             day: 'numeric',
-        //             year: 'numeric'
-        //         });
-        //         const isLatest = index === data.records.length - 1;
-        //         const emoji = isLatest ? '🎯' : '📌';
-        //         historyText += `${emoji} **${record.time}** - ${date}\n`;
-        //     });
-        //     checkEmbed.fields.push({ 
-        //         name: `📈 Record History (${data.records.length} total)`, 
-        //         value: historyText, 
-        //         inline: false 
-        //     });
-        // }
+        // Last updated info
+        if (data.lastUpdated) {
+            const lastUpdate = new Date(data.lastUpdated).toLocaleString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            checkEmbed.fields.push({ 
+                name: '🕐 Last Updated', 
+                value: lastUpdate, 
+                inline: true 
+            });
+        }
         
-        // // Last updated info
-        // if (data.lastUpdated) {
-        //     const lastUpdate = new Date(data.lastUpdated).toLocaleString('en-US', {
-        //         month: 'short',
-        //         day: 'numeric',
-        //         year: 'numeric',
-        //         hour: '2-digit',
-        //         minute: '2-digit'
-        //     });
-        //     checkEmbed.fields.push({ 
-        //         name: '🕐 Last Updated', 
-        //         value: lastUpdate, 
-        //         inline: true 
-        //     });
-        // }
-        
-        // // Proof status
+        // Proof status
         checkEmbed.fields.push({ 
             name: '📸 Proof Image', 
-            // value: data.proof ? '✅ Available' : '❌ Missing',
-            value: data.pic ? data.pic : '❌ Missing',
+            value: data.proof ? '✅ Available' : '❌ Missing', 
             inline: true 
         });
         
-        // // Category
-        // checkEmbed.fields.push({ 
-        //     name: '📁 Category', 
-        //     value: data.category.toUpperCase().replace(/-/g, ' '), 
-        //     inline: true 
-        // });
+        // Category
+        checkEmbed.fields.push({ 
+            name: '📁 Category', 
+            value: data.category.toUpperCase().replace(/-/g, ' '), 
+            inline: true 
+        });
         
         return (checkEmbed);
         
