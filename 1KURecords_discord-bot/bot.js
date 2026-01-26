@@ -1,7 +1,10 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, Collection, Events, GatewayIntentBits, ButtonInteraction } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, Collection, Events, GatewayIntentBits, ButtonInteraction, ActivityType, Presence } = require('discord.js');
 const fs = require('fs-extra');
 const path = require('path');
+// process.env.NODE_ENV = "default";
+process.env.NODE_ENV = process.argv[2];
 const config = require('config');
+console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
 const dictionary = './dictionary.json';
 
 // Create Discord client
@@ -19,14 +22,34 @@ const client = new Client({
 // Configuration
 const BOT_TOKEN = config.get('token');
 const SERVER_ID = config.get('server_id');
-const ALLOWED_CHANNEL_ID = config.get('channel_id');
+const ALLOWED_CHANNEL_ID = config.get('allowed_channel_id');
 const REGION_ROLE_MESSAGE_ID = config.get('region_role_message_id');
 const REGION_ROLE_CHANNEL_ID = config.get('region_role_channel_id');
 const DATA_FILE_PATH = config.get('map_data_path');
 // const PROOF_FOLDER = path.join(__dirname, '../Proof');
 const PROOF_FOLDER = config.get('proof_pics_path');
-
 const ROLE_ON_JOIN_ID = config.get('role_on_join_id');
+
+let isBotLocked = false;
+let petCount;
+let petMessageId;
+
+function givePets(){
+    const allowed_channel = client.channels.cache.get(ALLOWED_CHANNEL_ID);
+        console.log("channel: " + allowed_channel);
+        // const region_role_message = await region_role_channel.messages.fetch(REGION_ROLE_MESSAGE_ID);
+        // console.log(region_role_message.content);
+
+        const pet_button = new ButtonBuilder()
+            .setCustomId('pet_button')
+            .setLabel('Press to pet')
+            .setStyle(ButtonStyle.Primary)
+            .setDisabled(false);
+
+        const row = new ActionRowBuilder().addComponents(pet_button);
+        allowed_channel.send({ content: 
+            `pet pet pet c:<`, components: [row]});
+}
 
 const magic_ball_answers = [
     // Positive
@@ -37,7 +60,7 @@ const magic_ball_answers = [
     "Reply hazy, try again.", "Ask again later.", "Better not tell you now.", " Cannot predict now.", "Concentrate and ask again.",
 
     // Negative
-    "Don’t count on it.", "My reply is no.", "My sources say no.", " Outlook not so good.", "Very doubtful."
+    "Don’t count on it.", "My reply is no.", "My sources say no.", " Outlook not so good.", "Very doubtful.", "No."
 ];
 const magic_ball_answers_size = 20;
 
@@ -45,9 +68,8 @@ const magic_ball_answers_size = 20;
 fs.ensureDirSync(PROOF_FOLDER);
 
 // Make the bot post region pick message
-if (process.argv[2] === "1") {
-    
-    client.once('ready', async () => {
+if (process.argv[2] === "post_message") {
+    client.on(Events.ClientReady, async () => {
         const region_role_channel = client.channels.cache.get(REGION_ROLE_CHANNEL_ID);
         console.log("channel: " + region_role_channel.name);
         // const region_role_message = await region_role_channel.messages.fetch(REGION_ROLE_MESSAGE_ID);
@@ -105,7 +127,10 @@ function loadCommands() {
 }
 
 // Bot ready event
-client.once('ready', () => {
+client.on(Events.ClientReady, () => {
+    client.user.setPresence({
+        activities: [{name: 'silly thoughts :p', type: ActivityType.Listening}]
+    })
     console.log(`🤖 Bot is ready! Logged in as ${client.user.tag}`);
     console.log(`📁 Data file path: ${DATA_FILE_PATH}`);
     console.log(`📁 Data file exists: ${fs.existsSync(DATA_FILE_PATH)}`);
@@ -156,24 +181,41 @@ client.on(Events.InteractionCreate, async interaction => {
 
         console.log('button');
 
-        if (interaction.channel.id !== REGION_ROLE_CHANNEL_ID) return;
+        if (interaction.channel.id == REGION_ROLE_CHANNEL_ID) {
+            const role_EU =  await guild.roles.fetch(config.get('role_EU_id'));
+            const role_NA =  await guild.roles.fetch(config.get('role_NA_id'));
+            const role_AU =  await guild.roles.fetch(config.get('role_AU_id'));
+            const role_Asia =  await guild.roles.fetch(config.get('role_Asia_id'));
+            if (interaction.customId === 'button_EU') {
+                member.roles.cache.has(role_EU.id) ? member.roles.remove(role_EU) : member.roles.add(role_EU);
+                interaction.deferUpdate();
+            } else if (interaction.customId === 'button_NA') {
+                member.roles.cache.has(role_NA.id) ? member.roles.remove(role_NA) : member.roles.add(role_NA);
+                interaction.deferUpdate();
+            } else if (interaction.customId === 'button_AU') {
+                member.roles.cache.has(role_AU.id) ? member.roles.remove(role_AU) : member.roles.add(role_AU);
+                interaction.deferUpdate();
+            } else if (interaction.customId === 'button_Asia') {
+                member.roles.cache.has(role_Asia.id) ? member.roles.remove(role_Asia) : member.roles.add(role_Asia);
+                interaction.deferUpdate();
+            }
+        }
 
-        const role_EU =  await guild.roles.fetch(config.get('role_EU_id'));
-        const role_NA =  await guild.roles.fetch(config.get('role_NA_id'));
-        const role_AU =  await guild.roles.fetch(config.get('role_AU_id'));
-        const role_Asia =  await guild.roles.fetch(config.get('role_Asia_id'));
-        if (interaction.customId === 'button_EU') {
-            member.roles.cache.has(role_EU.id) ? member.roles.remove(role_EU) : member.roles.add(role_EU);
+        if (interaction.customId === 'pet_button') {
+            console.log("pet button");
+            const petMessage = interaction.message;
+            // petMessage.edit(`pet pet pet, pets: ${petCount}`)
+            //     .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
+            //     .catch(console.error);
+            petCount ++;
+            petMessage.edit(`pet pet pet c:< pet count: ${petCount}`)
             interaction.deferUpdate();
-        } else if (interaction.customId === 'button_NA') {
-            member.roles.cache.has(role_NA.id) ? member.roles.remove(role_NA) : member.roles.add(role_NA);
-            interaction.deferUpdate();
-        } else if (interaction.customId === 'button_AU') {
-            member.roles.cache.has(role_AU.id) ? member.roles.remove(role_AU) : member.roles.add(role_AU);
-            interaction.deferUpdate();
-        } else if (interaction.customId === 'button_Asia') {
-            member.roles.cache.has(role_Asia.id) ? member.roles.remove(role_Asia) : member.roles.add(role_Asia);
-            interaction.deferUpdate();
+            console.log('petCount: ', petCount);
+            if (petCount >= 10) {
+                console.log('bot unlocked');
+                isBotLocked = false;
+                petMessage.delete();
+            }
         }
     }
 
@@ -193,18 +235,32 @@ client.on(Events.GuildMemberAdd, async member => {
 })
 
 // Message handler
-client.on('messageCreate', async (message) => {
+client.on(Events.MessageCreate, async (message) => {
+
+    // You have hit the rock tax. Pet me meow
+    if (message.author.bot && message.content == 'You have hit the rock tax. Pet me meow') {
+        isBotLocked = true;
+        petCount = 0;
+        console.log('isBotLocked: ', isBotLocked);
+        givePets();
+    }
+    if (message.author.bot && message.content == `pet pet pet`) {
+        petMessageId = message.id;
+        console.log("pet message id: ", petMessageId);
+    }
+
     // Ignore bot messages
-    if (message.author.bot ) return;
+    if (message.author.bot || message.type == 19 || message.channelId != ALLOWED_CHANNEL_ID || isBotLocked) return;
     const content = message.content.toLowerCase().trim();
 
     if (message.mentions.has(client.user)) {
         console.log("bot was pinged");
+        console.log(message.type);
 
-        if (message.content.includes("@here") || message.content.includes("@everyone") || message.type == "REPLY") return;
+        if (message.content.includes("@here") || message.content.includes("@everyone")) return;
         
         // Magic 8 ball response
-        if (content.includes("is this") || content.includes("is it")) {
+        if (content.includes("is this") || content.includes("is it") || content.includes("?")) {
             let min = 0;
             let max = magic_ball_answers_size-1;
             let randomInt = Math.floor(Math.random() * (max - min + 1) + min);
@@ -223,7 +279,6 @@ client.on('messageCreate', async (message) => {
             message.reply(jsonData.words[randomInt]);
             return;
         }
-        
     }
 });
 

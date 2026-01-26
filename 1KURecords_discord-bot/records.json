@@ -1,8 +1,8 @@
 {
-  "control point" : {
+  "capture point" : {
     "curr" : "",
     "prev" : "",
-    "pic" : "record proof"
+    "pic" : "Stage 1 Image"
   },
   "cp_altitude" : {
     "curr" : "0:40",
@@ -19,15 +19,10 @@
     "prev" : "1:06",
     "pic" : "https://ibb.co/GvWpJGQn"
   },
-  "cp_dustbowl" : {
-    "curr" : "7:15",
-    "prev" : "7:33",
-    "pic" : ""
-  },
   "cp_egypt" : {
     "curr" : "6:30",
     "prev" : "7:18",
-    "pic" : "https://ibb.co/9qj3BvZ"
+    "pic" : "1:27"
   },
   "cp_fulgur" : {
     "curr" : "1:53",
@@ -35,9 +30,9 @@
     "pic" : "https://ibb.co/yFwmC2mY"
   },
   "cp_gorge" : {
-    "curr" : "3:01",
-    "prev" : "3:09",
-    "pic" : "https://ibb.co/rGsGvLMw"
+    "curr" : "3:09",
+    "prev" : "3:43",
+    "pic" : "https://ibb.co/sprBGkWL"
   },
   "cp_hardwood" : {
     "curr" : "2:47",
@@ -55,9 +50,9 @@
     "pic" : "https://ibb.co/LzXH3zyM"
   },
   "cp_mossrock" : {
-    "curr" : "1:05",
-    "prev" : "1:11",
-    "pic" : "https://ibb.co/s93ScZKY"
+    "curr" : "1:11",
+    "prev" : "1:40",
+    "pic" : "https://ibb.co/hJ57SZv0"
   },
   "cp_mountainlab" : {
     "curr" : "2:56",
@@ -105,9 +100,9 @@
     "pic" : "https://ibb.co/xqTvY5Sm"
   },
   "ctf_landfall" : {
-    "curr" : "6:26",
-    "prev" : "7:30",
-    "pic" : "https://ibb.co/hJ0Y0Qgx"
+    "curr" : "7:30",
+    "prev" : "x",
+    "pic" : "https://ibb.co/gZSRn1hf"
   },
   "ctf_sawmill" : {
     "curr" : "3:05",
@@ -200,8 +195,8 @@
     "pic" : "https://ibb.co/1Gh8M4Yq"
   },
   "pl_swiftwater" : {
-    "curr" : "5:14",
-    "prev" : "7:00",
+    "curr" : "7:00",
+    "prev" : "7:22",
     "pic" : "https://ibb.co/zVXcr49R"
   },
   "pl_thundermountain" : {
@@ -210,9 +205,9 @@
     "pic" : "https://ibb.co/Qvcg588x"
   },
   "pl_upward" : {
-    "curr" : "6:16",
-    "prev" : "6:40",
-    "pic" : "https://ibb.co/cSmPTttB"
+    "curr" : "6:40",
+    "prev" : "7:07",
+    "pic" : "https://ibb.co/pjBwymSX"
   },
   "pl_venice" : {
     "curr" : "6:26",

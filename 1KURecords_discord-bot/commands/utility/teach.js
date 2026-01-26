@@ -22,7 +22,7 @@ module.exports = {
             ),
         async execute(interaction) {
             saveToDictionary(interaction.options.getString('phrase'));
-            response = "Added" + interaction.options.getString('phrase') + " to dictionary.";
+            response = "Added \"" + interaction.options.getString('phrase') + "\" to dictionary.";
     
             await interaction.reply({ content: response});
         }

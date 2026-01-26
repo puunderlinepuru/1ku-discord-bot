@@ -36,10 +36,6 @@ function getMapData(request_map) {
 
     const mapId = request_map;
 
-    if (!mapId) {
-        return '❌ Usage: `/check <map>`\nExample: `/check cp_dustbowl`';
-    }
-
     try {
         const mapRecords = loadMapData();
         

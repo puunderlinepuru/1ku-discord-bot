@@ -1,8 +1,8 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder().setName('ping').setDescription('Pong!'),
     async execute(interaction) {
-        await interaction.reply({ content: 'Pong!', ephemeral: true});
+        await interaction.reply({ content: 'Pong!', flags: MessageFlags.Ephemeral});
     }
 }
