@@ -31,7 +31,7 @@ const PROOF_FOLDER = config.get('proof_pics_path');
 const ROLE_ON_JOIN_ID = config.get('role_on_join_id');
 
 let isBotLocked = false;
-let petCount;
+let pet_count;
 let petMessageId;
 
 function givePets(){
@@ -62,7 +62,7 @@ const magic_ball_answers = [
     // Negative
     "Don’t count on it.", "My reply is no.", "My sources say no.", " Outlook not so good.", "Very doubtful.", "No."
 ];
-const magic_ball_answers_size = 20;
+const magic_ball_answers_size = 21;
 
 // Ensure directories exist
 fs.ensureDirSync(PROOF_FOLDER);
@@ -143,11 +143,11 @@ client.on(Events.ClientReady, () => {
 
 // Button press event
 client.on(Events.InteractionCreate, async interaction => {
-    console.log('event: ' + interaction.type);
+    console.log('[EVENT] event: ' + interaction.type);
 
     // Commands
     if (interaction.type === 2) {
-        console.log('command');
+        console.log('[EVENT] command');
 
         const command = interaction.client.commands.get(interaction.commandName);
 
@@ -179,7 +179,7 @@ client.on(Events.InteractionCreate, async interaction => {
         const guild = client.guilds.cache.get(SERVER_ID)
         const member = await guild.members.fetch(interaction.user.id);
 
-        console.log('button');
+        console.log('[EVENT] button');
 
         if (interaction.channel.id == REGION_ROLE_CHANNEL_ID) {
             const role_EU =  await guild.roles.fetch(config.get('role_EU_id'));
@@ -204,17 +204,20 @@ client.on(Events.InteractionCreate, async interaction => {
         if (interaction.customId === 'pet_button') {
             console.log("pet button");
             const petMessage = interaction.message;
-            // petMessage.edit(`pet pet pet, pets: ${petCount}`)
+            // petMessage.edit(`pet pet pet, pets: ${pet_count}`)
             //     .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
             //     .catch(console.error);
-            petCount ++;
-            petMessage.edit(`pet pet pet c:< pet count: ${petCount}`)
+            pet_count ++;
+            petMessage.edit(`pet pet pet c:< pet count: ${pet_count}`)
             interaction.deferUpdate();
-            console.log('petCount: ', petCount);
-            if (petCount >= 10) {
+            console.log('pet_count: ', pet_count);
+            if (pet_count >= 10) {
                 console.log('bot unlocked');
                 isBotLocked = false;
-                petMessage.delete();
+                if (petMessage.deletable) petMessage.delete().catch(()=> null);
+                setTimeout(() => {
+                    if (petMessage.deletable) petMessage.delete().catch(() => null);
+                }, 5000);
             }
         }
     }
@@ -240,7 +243,7 @@ client.on(Events.MessageCreate, async (message) => {
     // You have hit the rock tax. Pet me meow
     if (message.author.bot && message.content == 'You have hit the rock tax. Pet me meow') {
         isBotLocked = true;
-        petCount = 0;
+        pet_count = 0;
         console.log('isBotLocked: ', isBotLocked);
         givePets();
     }
@@ -254,8 +257,8 @@ client.on(Events.MessageCreate, async (message) => {
     const content = message.content.toLowerCase().trim();
 
     if (message.mentions.has(client.user)) {
-        console.log("bot was pinged");
-        console.log(message.type);
+        console.log("[PING] bot was pinged at ", new Date());
+        console.log("[MESSAGE] Message type: ", message.type);
 
         if (message.content.includes("@here") || message.content.includes("@everyone")) return;
         

@@ -7,7 +7,7 @@ function saveToDictionary(string) {
 
     jsonData.words.push(string);
 
-    fs.writeFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/dictionary.json', JSON.stringify(jsonData));
+    fs.writeFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/dictionary.json', JSON.stringify(jsonData, null, 2));
     console.log("added");
 }
 
