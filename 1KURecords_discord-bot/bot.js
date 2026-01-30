@@ -1,8 +1,19 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, Client, Collection, Events, GatewayIntentBits, ButtonInteraction, ActivityType, Presence } = require('discord.js');
+const { 
+    ActionRowBuilder, 
+    ButtonBuilder, 
+    ButtonStyle, 
+    Client, 
+    Collection, 
+    Events, 
+    GatewayIntentBits, 
+    ButtonInteraction, 
+    ActivityType, 
+    Presence, 
+    Component
+} = require('discord.js');
 const fs = require('fs-extra');
 const path = require('path');
-// process.env.NODE_ENV = "default";
-process.env.NODE_ENV = process.argv[2];
+process.env.NODE_ENV = process.argv[2] ?? "default";
 const config = require('config');
 console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
 const dictionary = './dictionary.json';
@@ -27,7 +38,7 @@ const REGION_ROLE_MESSAGE_ID = config.get('region_role_message_id');
 const REGION_ROLE_CHANNEL_ID = config.get('region_role_channel_id');
 const DATA_FILE_PATH = config.get('map_data_path');
 // const PROOF_FOLDER = path.join(__dirname, '../Proof');
-const PROOF_FOLDER = config.get('proof_pics_path');
+// const PROOF_FOLDER = config.get('proof_pics_path');
 const ROLE_ON_JOIN_ID = config.get('role_on_join_id');
 
 let isBotLocked = false;
@@ -65,7 +76,7 @@ const magic_ball_answers = [
 const magic_ball_answers_size = 21;
 
 // Ensure directories exist
-fs.ensureDirSync(PROOF_FOLDER);
+// fs.ensureDirSync(PROOF_FOLDER);
 
 // Make the bot post region pick message
 if (process.argv[2] === "post_message") {
@@ -129,12 +140,16 @@ function loadCommands() {
 // Bot ready event
 client.on(Events.ClientReady, () => {
     client.user.setPresence({
-        activities: [{name: 'silly thoughts :p', type: ActivityType.Listening}]
+        // Laptop
+        activities: [{name: 'in pu\'s laptop', type: ActivityType.Playing}]
+
+        // PC
+        // activities: [{name: 'silly thoughts :p', type: ActivityType.Listening}]
     })
     console.log(`🤖 Bot is ready! Logged in as ${client.user.tag}`);
     console.log(`📁 Data file path: ${DATA_FILE_PATH}`);
     console.log(`📁 Data file exists: ${fs.existsSync(DATA_FILE_PATH)}`);
-    console.log(`🖼️  Proof folder: ${PROOF_FOLDER}`);
+    // console.log(`🖼️  Proof folder: ${PROOF_FOLDER}`);
     console.log(`📂 Current working directory: ${process.cwd()}`);
     console.log(`📂 Bot file location: ${__dirname}`);
 
@@ -213,11 +228,16 @@ client.on(Events.InteractionCreate, async interaction => {
             console.log('pet_count: ', pet_count);
             if (pet_count >= 10) {
                 console.log('bot unlocked');
+                petMessage.edit({components: []});
                 isBotLocked = false;
-                if (petMessage.deletable) petMessage.delete().catch(()=> null);
+                // if (petMessage.deletable) 
+                //     {
+                //         petMessage.delete().catch(()=> null);
+                //         console.log('message deleted');
+                //     }
                 setTimeout(() => {
                     if (petMessage.deletable) petMessage.delete().catch(() => null);
-                }, 5000);
+                }, 4000);
             }
         }
     }
