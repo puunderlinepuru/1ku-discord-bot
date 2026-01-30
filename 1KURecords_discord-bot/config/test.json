@@ -1,0 +1,17 @@
+{
+    "map_data_path" : "D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/records.json",
+    "proof_pics_path": "D:/1kU website/Proof",
+
+    "token": "MTQzNTMwOTA4NTk4NDgxNzE3Mg.GFj0h5.SLPXLu1XMyI4ihD9nIQgOhqSp7r-0zPhLorLxg",
+    "client_id": "1435309085984817172",
+    "server_id": "1326570611975258227",
+    "channel_id": "",
+    "allowed_channel_id": "1436478432618877141",
+    "region_role_channel_id": "1441494954299101384",
+    "region_role_message_id": "1441737035873521727",
+    "role_on_join_id": "1436112043710091344",
+    "role_EU_id": "1436112087830106133",
+    "role_NA_id": "1438584163493089351",
+    "role_AU_id": "1438584163493089351",
+    "role_Asia_id": "1438584163493089351"
+}
