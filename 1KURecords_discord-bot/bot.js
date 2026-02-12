@@ -15,6 +15,7 @@ const fs = require('fs-extra');
 const path = require('path');
 process.env.NODE_ENV = process.argv[2] ?? "default";
 const config = require('config');
+const token = require('./token.json');
 console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
 const dictionary = './dictionary.json';
 
@@ -31,7 +32,7 @@ const client = new Client({
 });
 
 // Configuration
-const BOT_TOKEN = config.get('token');
+const BOT_TOKEN = token.token;
 const SERVER_ID = config.get('server_id');
 const ALLOWED_CHANNEL_ID = config.get('allowed_channel_id');
 const REGION_ROLE_MESSAGE_ID = config.get('region_role_message_id');
