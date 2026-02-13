@@ -1,3 +1,5 @@
+process.env.NODE_ENV = process.argv[2] ?? "default";
+
 const { 
     ActionRowBuilder, 
     ButtonBuilder, 
@@ -13,7 +15,6 @@ const {
 } = require('discord.js');
 const fs = require('fs-extra');
 const path = require('path');
-process.env.NODE_ENV = process.argv[2] ?? "default";
 const config = require('config');
 const token = require('./token.json');
 console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
@@ -142,10 +143,13 @@ function loadCommands() {
 client.on(Events.ClientReady, () => {
     client.user.setPresence({
         // Laptop
-        activities: [{name: 'in pu\'s laptop', type: ActivityType.Playing}]
+        // activities: [{name: 'in pu\'s laptop', type: ActivityType.Playing}]
 
         // PC
-        // activities: [{name: 'silly thoughts :p', type: ActivityType.Listening}]
+        activities: [{name: 
+            // 'silly thoughts :p', 
+            'the records are still not working',
+            type: ActivityType.Listening}]
     })
     console.log(`🤖 Bot is ready! Logged in as ${client.user.tag}`);
     console.log(`📁 Data file path: ${DATA_FILE_PATH}`);
@@ -271,6 +275,32 @@ client.on(Events.MessageCreate, async (message) => {
     if (message.author.bot && message.content == `pet pet pet`) {
         petMessageId = message.id;
         console.log("pet message id: ", petMessageId);
+    }
+
+     // Hunger
+    if (message.author.id == '229734102071246850') {
+        const data = fs.readFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json');
+            const jsonData = JSON.parse(data);
+        
+            jsonData.words.push(message.content);
+        
+            fs.writeFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json', JSON.stringify(jsonData, null, 2));
+            console.log("added");
+    }
+
+    // 67
+    if (!message.author.bot && message.content.includes('67')) {
+        message.reply('https://tenor.com/view/dr-manhattan-gif-18899941');
+        message.channel.send(`timed ${message.author.name} for 9 seconds.. I think`)
+        message.guild.members.fetch(message.author.id)
+            .then(user => {
+                user.timeout(9000, `timed out for 10 seconds.. I think`)
+                .then(() => {
+                console.log('Timed user out for 9000 seconds.')
+                })
+                .catch(console.error)
+            })
+            .catch(console.error)
     }
 
     // Ignore bot messages
