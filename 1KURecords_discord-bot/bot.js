@@ -19,6 +19,10 @@ const config = require('config');
 const token = require('./token.json');
 console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
 const dictionary = './dictionary.json';
+const six_seven_detector = require('./six_seven_detector');
+const { json } = require('stream/consumers');
+
+const detector = new six_seven_detector();
 
 // Create Discord client
 const client = new Client({
@@ -148,7 +152,7 @@ client.on(Events.ClientReady, () => {
         // PC
         activities: [{name: 
             // 'silly thoughts :p', 
-            'the records are still not working',
+            '67 checks are back on c:<',
             type: ActivityType.Listening}]
     })
     console.log(`🤖 Bot is ready! Logged in as ${client.user.tag}`);
@@ -159,6 +163,12 @@ client.on(Events.ClientReady, () => {
     console.log(`📂 Bot file location: ${__dirname}`);
 
     loadCommands();
+
+    // Spawn Message
+    const allowed_channel = client.channels.cache.get(ALLOWED_CHANNEL_ID);
+    // allowed_channel.send("https://tenor.com/view/cat-chat-cat-fall-hello-chat-cat-gif-24961178");
+    // allowed_channel.send("<:silly:1315393509473386536>");
+    
 });
 
 // Button press event
@@ -265,6 +275,8 @@ client.on(Events.GuildMemberAdd, async member => {
 // Message handler
 client.on(Events.MessageCreate, async (message) => {
 
+    console.log(`[MESSAGE]: ${message.content} \n from ${message.channel.name}`)
+
     // You have hit the rock tax. Pet me meow
     if (message.author.bot && message.content == 'You have hit the rock tax. Pet me meow') {
         isBotLocked = true;
@@ -282,26 +294,68 @@ client.on(Events.MessageCreate, async (message) => {
         const data = fs.readFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json');
             const jsonData = JSON.parse(data);
         
-            jsonData.words.push(message.content);
+            jsonData.messages.push(message.content);
         
             fs.writeFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json', JSON.stringify(jsonData, null, 2));
             console.log("added");
     }
+    
+    
 
-    // 67
-    if (!message.author.bot && message.content.includes('67')) {
+    if (message.guildId == SERVER_ID) {
+        if (message.channelId != ALLOWED_CHANNEL_ID) return;
+        if (message.author.bot) return;
+
+        // Skyro
+        if(message.author.id == '860628447562694677') {
+        let randomInt = Math.round(Math.random());
+
+        const data = fs.readFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/things.json');
+        const jsonData = JSON.parse(data);
+
+    
+        
+        if(randomInt == 1) {
+            jsonData["timeouts"] += 1;
+
+            // timeout skyro
+            message.reply('https://tenor.com/view/markiplier-gif-24903806');
+            message.channel.send(`Skyro beaned for 15 seconds. \n Luck timeouts/not timeouts: ${jsonData["timeouts"]}/${jsonData["not timeouts"]} \n Timeout Ratio:${((jsonData["timeouts"]/jsonData["not timeouts"])*100).toFixed(2)}%`);
+            message.guild.members.fetch(message.author.id)
+                .then(user => {
+                    user.timeout(15000, `Couldn't roll out of that one`)
+                    .then(() => {
+                    console.log(`Timed ${message.author.username} out for 15 seconds.`)
+                    })
+                    .catch(console.error)
+                })
+                .catch(console.error)
+        } else{
+            jsonData["not timeouts"] += 1;
+        }
+
+        fs.writeFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/things.json', JSON.stringify(jsonData, null, 2));
+        console.log("added");
+    }
+
+        if(detector.shouldTimeout(message.content)) {
         message.reply('https://tenor.com/view/dr-manhattan-gif-18899941');
-        message.channel.send(`timed ${message.author.name} for 9 seconds.. I think`)
+        message.channel.send(`Timed ${message.author.username} out for 15 seconds.`)
         message.guild.members.fetch(message.author.id)
             .then(user => {
-                user.timeout(9000, `timed out for 10 seconds.. I think`)
+                user.timeout(15000, `timed out for 15 seconds.. I think`)
                 .then(() => {
-                console.log('Timed user out for 9000 seconds.')
+                console.log(`Timed ${message.author.username} out for 15 seconds.`)
                 })
                 .catch(console.error)
             })
             .catch(console.error)
+        } else {
+            console.log("not detected")
+        }
     }
+    
+    
 
     // Ignore bot messages
     if (message.author.bot || message.type == 19 || message.channelId != ALLOWED_CHANNEL_ID || isBotLocked) return;
@@ -341,4 +395,3 @@ client.on('error', console.error);
 
 // Login to Discord
 client.login(BOT_TOKEN);
-
