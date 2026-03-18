@@ -14,7 +14,7 @@ const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
  */
 async function listMajors() {
   // Authenticate with Google and get an authorized client.
-console.log("check")
+  console.log("check")
 
   const auth = await authenticate({
     scopes: SCOPES,

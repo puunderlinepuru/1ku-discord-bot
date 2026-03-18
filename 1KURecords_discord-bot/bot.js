@@ -1,4 +1,10 @@
-process.env.NODE_ENV = process.argv[2] ?? "default";
+
+const LAUNCHED_ON = process.argv[2] ?? "pc";
+if (LAUNCHED_ON != "pc" && LAUNCHED_ON != "laptop") { 
+    console.log("Invalid launch argument, setting \"launched on\n device to PC");
+    LAUNCHED_ON == "pc";
+}
+process.env.NODE_ENV = process.argv[3] ?? "default";
 
 const { 
     ActionRowBuilder, 
@@ -166,7 +172,9 @@ client.on(Events.ClientReady, () => {
 
     // Spawn Message
     const allowed_channel = client.channels.cache.get(ALLOWED_CHANNEL_ID);
+    // CAT GIF
     // allowed_channel.send("https://tenor.com/view/cat-chat-cat-fall-hello-chat-cat-gif-24961178");
+    // SILLY EMOJI
     // allowed_channel.send("<:silly:1315393509473386536>");
     
 });
@@ -291,52 +299,76 @@ client.on(Events.MessageCreate, async (message) => {
 
      // Hunger
     if (message.author.id == '229734102071246850') {
-        const data = fs.readFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json');
-            const jsonData = JSON.parse(data);
+        let data;
+        if(LAUNCHED_ON == "pc") {
+            data = fs.readFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json');
+        } else if (LAUNCHED_ON == "laptop") {
+            data = fs.readFileSync('/home/labobo/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json');
+        }
         
-            jsonData.messages.push(message.content);
-        
+        const jsonData = JSON.parse(data);
+    
+        jsonData.messages.push(message.content);
+    
+        if (LAUNCHED_ON == "pc"){
             fs.writeFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json', JSON.stringify(jsonData, null, 2));
-            console.log("added");
+        } else if (LAUNCHED_ON == "laptop"){
+            fs.writeFileSync('/home/labobo/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json', JSON.stringify(jsonData, null, 2));
+        }
+        
+        console.log("added");
     }
     
     
 
     if (message.guildId == SERVER_ID) {
-        if (message.channelId != ALLOWED_CHANNEL_ID) return;
         if (message.author.bot) return;
 
         // Skyro
         if(message.author.id == '860628447562694677') {
-        let randomInt = Math.round(Math.random());
+            let randomInt = Math.round(Math.random());
 
-        const data = fs.readFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/things.json');
-        const jsonData = JSON.parse(data);
+            let data;
 
-    
-        
-        if(randomInt == 1) {
-            jsonData["timeouts"] += 1;
+            if(LAUNCHED_ON == "pc") {
+                data = fs.readFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/things.json');
+            } else if(LAUNCHED_ON == "laptop") {
+                data = fs.readFileSync('/home/labobo/1ku-discord-bot/1KURecords_discord-bot/things.json');
+            }
+            const jsonData = JSON.parse(data);
+            
+            if(randomInt == 1) {
+                jsonData["timeouts"] += 1;
 
-            // timeout skyro
-            message.reply('https://tenor.com/view/markiplier-gif-24903806');
-            message.channel.send(`Skyro beaned for 15 seconds. \n Luck timeouts/not timeouts: ${jsonData["timeouts"]}/${jsonData["not timeouts"]} \n Timeout Ratio:${((jsonData["timeouts"]/jsonData["not timeouts"])*100).toFixed(2)}%`);
-            message.guild.members.fetch(message.author.id)
-                .then(user => {
-                    user.timeout(15000, `Couldn't roll out of that one`)
-                    .then(() => {
-                    console.log(`Timed ${message.author.username} out for 15 seconds.`)
+                if(message.channelId == ALLOWED_CHANNEL_ID) {
+                    message.reply('https://tenor.com/view/markiplier-gif-24903806');
+                    message.channel.send(`Skyro beaned for 15 seconds. 
+                        \n Luck timeouts/not timeouts: ${jsonData["timeouts"]}/${jsonData["not timeouts"]} 
+                        \n Timeout Ratio:${(jsonData["timeouts"]/(jsonData["timeouts"]+jsonData["not timeouts"])*100).toFixed(2)}%`);
+                } else {
+                    message.reply('<:pow:1477691304178745405>')
+                }
+                message.guild.members.fetch(message.author.id)
+                    .then(user => {
+                        user.timeout(15000, `Couldn't roll out of that one`)
+                        .then(() => {
+                        console.log(`Timed ${message.author.username} out for 15 seconds.`)
+                        })
+                        .catch(console.error)
                     })
                     .catch(console.error)
-                })
-                .catch(console.error)
-        } else{
-            jsonData["not timeouts"] += 1;
+            } else{
+                jsonData["not timeouts"] += 1;
+            }
+
+            if(LAUNCHED_ON == "pc") {
+                fs.writeFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/things.json', JSON.stringify(jsonData, null, 2));
+            } else if (LAUNCHED_ON == "laptop") {
+                fs.writeFileSync('/home/labobo/1ku-discord-bot/1KURecords_discord-bot/things.json', JSON.stringify(jsonData, null, 2));
+            }
         }
 
-        fs.writeFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/things.json', JSON.stringify(jsonData, null, 2));
-        console.log("added");
-    }
+        if (message.channelId != ALLOWED_CHANNEL_ID) return;
 
         if(detector.shouldTimeout(message.content)) {
         message.reply('https://tenor.com/view/dr-manhattan-gif-18899941');

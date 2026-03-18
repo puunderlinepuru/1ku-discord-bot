@@ -137,6 +137,9 @@ class ProhibitedPhraseDetector {
    * @returns {string} - Cleaned message
    */
   cleanMessage(message) {
+    while (message.includes("  ")) {
+      message = message.replace("  ", ' ')
+    }
     // Keep only alphanumeric, special characters and basic punctuation
     return message.replace(/[^a-zA-Z0-9!@<:>.,#$%^&*()?{}[\]\\|\/\s-]/g, '');
   }
