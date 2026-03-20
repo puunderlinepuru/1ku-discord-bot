@@ -173,7 +173,7 @@ client.on(Events.ClientReady, () => {
     // Spawn Message
     const allowed_channel = client.channels.cache.get(ALLOWED_CHANNEL_ID);
     // CAT GIF
-    allowed_channel.send("https://tenor.com/view/cat-chat-cat-fall-hello-chat-cat-gif-24961178");
+    // allowed_channel.send("https://tenor.com/view/cat-chat-cat-fall-hello-chat-cat-gif-24961178");
     // SILLY EMOJI
     // allowed_channel.send("<:silly:1315393509473386536>");
     
@@ -295,28 +295,6 @@ client.on(Events.MessageCreate, async (message) => {
     if (message.author.bot && message.content == `pet pet pet`) {
         petMessageId = message.id;
         console.log("pet message id: ", petMessageId);
-    }
-
-     // Hunger
-    if (message.author.id == '229734102071246850') {
-        let data;
-        if(LAUNCHED_ON == "pc") {
-            data = fs.readFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json');
-        } else if (LAUNCHED_ON == "laptop") {
-            data = fs.readFileSync('/home/labobo/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json');
-        }
-        
-        const jsonData = JSON.parse(data);
-    
-        jsonData.messages.push(message.content);
-    
-        if (LAUNCHED_ON == "pc"){
-            fs.writeFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json', JSON.stringify(jsonData, null, 2));
-        } else if (LAUNCHED_ON == "laptop"){
-            fs.writeFileSync('/home/labobo/1ku-discord-bot/1KURecords_discord-bot/hungers_messages.json', JSON.stringify(jsonData, null, 2));
-        }
-        
-        console.log("added");
     }
     
     
