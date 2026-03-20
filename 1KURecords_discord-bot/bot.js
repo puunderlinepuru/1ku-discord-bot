@@ -1,5 +1,5 @@
-
 const LAUNCHED_ON = process.argv[2] ?? "pc";
+console.log(process.platform)
 if (LAUNCHED_ON != "pc" && LAUNCHED_ON != "laptop") { 
     console.log("Invalid launch argument, setting \"launched on\n device to PC");
     LAUNCHED_ON == "pc";
@@ -173,7 +173,7 @@ client.on(Events.ClientReady, () => {
     // Spawn Message
     const allowed_channel = client.channels.cache.get(ALLOWED_CHANNEL_ID);
     // CAT GIF
-    // allowed_channel.send("https://tenor.com/view/cat-chat-cat-fall-hello-chat-cat-gif-24961178");
+    allowed_channel.send("https://tenor.com/view/cat-chat-cat-fall-hello-chat-cat-gif-24961178");
     // SILLY EMOJI
     // allowed_channel.send("<:silly:1315393509473386536>");
     
