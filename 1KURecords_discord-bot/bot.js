@@ -1,7 +1,7 @@
 const LAUNCHED_ON = process.platform
 console.log(process.platform) // either linux or win32
 if (LAUNCHED_ON != "linux" && LAUNCHED_ON != "win32") { 
-    console.log("Invalid launch argument, setting \"launched on\n device to Windows");
+    console.log("Invalid system detected, setting \"launched on\" system to Windows");
     LAUNCHED_ON == "win32";
 }
 process.env.NODE_ENV = process.argv[2] ?? "default";
@@ -25,10 +25,7 @@ const config = require('config');
 const token = require('./token.json');
 console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
 const dictionary = './dictionary.json';
-const six_seven_detector = require('./six_seven_detector');
 const { json } = require('stream/consumers');
-
-const detector = new six_seven_detector();
 
 // Create Discord client
 const client = new Client({
@@ -157,8 +154,8 @@ client.on(Events.ClientReady, () => {
 
         // PC
         activities: [{name: 
-            'testing mode', 
-            // '67 checks are back on c:<',
+            // 'testing mode', 
+            'silly thoughts :3',
             type: ActivityType.Listening}]
     })
     console.log(`🤖 Bot is ready! Logged in as ${client.user.tag}`);
@@ -298,76 +295,6 @@ client.on(Events.MessageCreate, async (message) => {
         console.log("pet message id: ", petMessageId);
     }
     
-    
-
-    if (message.guildId == SERVER_ID) {
-        if (message.author.bot) return;
-
-        // Skyro
-        if(message.author.id == '860628447562694677') {
-            let randomInt = Math.round(Math.random());
-
-            let data;
-
-            if(LAUNCHED_ON == "win32") {
-                data = fs.readFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/things.json');
-            } else if(LAUNCHED_ON == "linux") {
-                data = fs.readFileSync('/home/labobo/1ku-discord-bot/1KURecords_discord-bot/things.json');
-            }
-            const jsonData = JSON.parse(data);
-            
-            if(randomInt == 1) {
-                jsonData["timeouts"] += 1;
-
-                if(message.channelId == ALLOWED_CHANNEL_ID) {
-                    message.reply('https://tenor.com/view/markiplier-gif-24903806');
-                    message.channel.send(`Skyro beaned for 15 seconds. 
-                        \n Luck timeouts/not timeouts: ${jsonData["timeouts"]}/${jsonData["not timeouts"]} 
-                        \n Timeout Ratio:${(jsonData["timeouts"]/(jsonData["timeouts"]+jsonData["not timeouts"])*100).toFixed(2)}%`);
-                } else {
-                    message.reply('<:pow:1477691304178745405>')
-                }
-                message.guild.members.fetch(message.author.id)
-                    .then(user => {
-                        user.timeout(15000, `Couldn't roll out of that one`)
-                        .then(() => {
-                        console.log(`Timed ${message.author.username} out for 15 seconds.`)
-                        })
-                        .catch(console.error)
-                    })
-                    .catch(console.error)
-            } else{
-                jsonData["not timeouts"] += 1;
-            }
-
-            if(LAUNCHED_ON == "win32") {
-                fs.writeFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/things.json', JSON.stringify(jsonData, null, 2));
-            } else if (LAUNCHED_ON == "linux") {
-                fs.writeFileSync('/home/labobo/1ku-discord-bot/1KURecords_discord-bot/things.json', JSON.stringify(jsonData, null, 2));
-            }
-        }
-
-        if (message.channelId != ALLOWED_CHANNEL_ID) return;
-
-        if(detector.shouldTimeout(message.content)) {
-        message.reply('https://tenor.com/view/dr-manhattan-gif-18899941');
-        message.channel.send(`Timed ${message.author.username} out for 15 seconds.`)
-        message.guild.members.fetch(message.author.id)
-            .then(user => {
-                user.timeout(15000, `timed out for 15 seconds.. I think`)
-                .then(() => {
-                console.log(`Timed ${message.author.username} out for 15 seconds.`)
-                })
-                .catch(console.error)
-            })
-            .catch(console.error)
-        } else {
-            console.log("not detected")
-        }
-    }
-    
-    
-
     // Ignore bot messages
     if (message.author.bot || message.type == 19 || message.channelId != ALLOWED_CHANNEL_ID || isBotLocked) return;
     const content = message.content.toLowerCase().trim();
