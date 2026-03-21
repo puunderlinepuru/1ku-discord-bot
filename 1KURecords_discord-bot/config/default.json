@@ -1,6 +1,6 @@
 {
-    "map_data_path" : "D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/records.json",
-    "proof_pics_path": "D:/1kU website/Proof",
+    "map_data_path" : "records.json",
+    "proof_pics_path": "Proof",
 
     "client_id": "1435309085984817172",
     "server_id": "1306287199259463710",

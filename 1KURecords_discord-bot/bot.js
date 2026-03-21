@@ -1,10 +1,10 @@
-const LAUNCHED_ON = process.argv[2] ?? "pc";
-console.log(process.platform)
-if (LAUNCHED_ON != "pc" && LAUNCHED_ON != "laptop") { 
-    console.log("Invalid launch argument, setting \"launched on\n device to PC");
-    LAUNCHED_ON == "pc";
+const LAUNCHED_ON = process.platform
+console.log(process.platform) // either linux or win32
+if (LAUNCHED_ON != "linux" && LAUNCHED_ON != "win32") { 
+    console.log("Invalid launch argument, setting \"launched on\n device to Windows");
+    LAUNCHED_ON == "win32";
 }
-process.env.NODE_ENV = process.argv[3] ?? "default";
+process.env.NODE_ENV = process.argv[2] ?? "default";
 
 const { 
     ActionRowBuilder, 
@@ -157,8 +157,8 @@ client.on(Events.ClientReady, () => {
 
         // PC
         activities: [{name: 
-            // 'silly thoughts :p', 
-            '67 checks are back on c:<',
+            'testing mode', 
+            // '67 checks are back on c:<',
             type: ActivityType.Listening}]
     })
     console.log(`🤖 Bot is ready! Logged in as ${client.user.tag}`);
@@ -174,6 +174,7 @@ client.on(Events.ClientReady, () => {
     const allowed_channel = client.channels.cache.get(ALLOWED_CHANNEL_ID);
     // CAT GIF
     // allowed_channel.send("https://tenor.com/view/cat-chat-cat-fall-hello-chat-cat-gif-24961178");
+
     // SILLY EMOJI
     // allowed_channel.send("<:silly:1315393509473386536>");
     
@@ -308,9 +309,9 @@ client.on(Events.MessageCreate, async (message) => {
 
             let data;
 
-            if(LAUNCHED_ON == "pc") {
+            if(LAUNCHED_ON == "win32") {
                 data = fs.readFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/things.json');
-            } else if(LAUNCHED_ON == "laptop") {
+            } else if(LAUNCHED_ON == "linux") {
                 data = fs.readFileSync('/home/labobo/1ku-discord-bot/1KURecords_discord-bot/things.json');
             }
             const jsonData = JSON.parse(data);
@@ -339,9 +340,9 @@ client.on(Events.MessageCreate, async (message) => {
                 jsonData["not timeouts"] += 1;
             }
 
-            if(LAUNCHED_ON == "pc") {
+            if(LAUNCHED_ON == "win32") {
                 fs.writeFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/things.json', JSON.stringify(jsonData, null, 2));
-            } else if (LAUNCHED_ON == "laptop") {
+            } else if (LAUNCHED_ON == "linux") {
                 fs.writeFileSync('/home/labobo/1ku-discord-bot/1KURecords_discord-bot/things.json', JSON.stringify(jsonData, null, 2));
             }
         }

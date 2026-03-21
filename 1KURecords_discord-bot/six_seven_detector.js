@@ -75,7 +75,7 @@ class ProhibitedPhraseDetector {
     ]
     
     // Common prohibited patterns
-    this.prohibitedPatterns = ['67', '6 7', 'sixseven', 'six seven' , 's6xs7ven', 's6x s7ven'];
+    this.prohibitedPatterns = ['67', '6 7', '-67-', '6-7','sixseven', 'six seven' , 's6xs7ven', 's6x s7ven'];
   }
 
   /**
@@ -178,6 +178,8 @@ class ProhibitedPhraseDetector {
    * @param {string} message - The message to process
    * @returns {string} - Message with processed links
    */
+// https://tenor.com/view/simpsons-sideshow-bob-rakes-annoyance-constant-gif-17065268
+
   processLinks(message) {
     const httpRegex = /(https?:\/\/[^\s]+)/g;
     let result = message;
