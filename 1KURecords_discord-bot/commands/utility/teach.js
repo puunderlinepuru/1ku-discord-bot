@@ -1,13 +1,15 @@
 const { SlashCommandBuilder } = require('discord.js');
 const fs = require('fs-extra');
+const path = require('path');
+crawlDirectory();
 
 function saveToDictionary(string) {
-    const data = fs.readFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/dictionary.json');
+    const data = fs.readFileSync(path.resolve(__dirname, '..', '..', 'dictionary.json'));
     const jsonData = JSON.parse(data);
 
     jsonData.words.push(string);
 
-    fs.writeFileSync('D:/1kU website/1ku-discord-bot/1KURecords_discord-bot/dictionary.json', JSON.stringify(jsonData, null, 2));
+    fs.writeFileSync(path.resolve(__dirname, '..', '..', 'dictionary.json'), JSON.stringify(jsonData, null, 2));
     console.log("added");
 }
 
